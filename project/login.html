@@ -1,0 +1,110 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Dasar Jati Sdn Bhd</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest minified jQuery -->
+<script src="js/jquery-3.1.1.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	// Ajax POST to backend
+	$.ajax({
+	  method: "POST",
+	  url: "api/user.php",
+	  dataType: "json",
+	  async: false
+	})
+	.done(function(data) {
+		// get json value
+	 	var login = data.login;
+	 	// if login=true, redirect to index page
+	 	if(login) {
+			window.location.href = 'index.html';
+	 	} 
+	});
+</script>
+
+<style type="text/css">
+	body {
+		background-image: url('image/bg.gif');
+	}
+	.login-container {
+		margin: auto;
+		margin-top: 100px;
+		width: 400px;
+	}
+	.login-title {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.alert-error-container {
+		margin: auto;
+		/*margin-top: 80px;*/
+		width: 400px;
+		display: none;
+	}
+</style>
+</head>
+<body>
+	<div class="login-container">
+		<div class="alert-error-container">
+			<div class="alert alert-danger msg-error" role="alert"></div>
+		</div>	
+		<div class="panel panel-default">
+	  	<div class="panel-heading login-title"><span class="glyphicon glyphicon-log-in"></span> <span style="padding-left:10px">Login</span></div>
+	  	<div class="panel-body">
+	    	<form action="#">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">Email address</label>
+				    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+				  </div>
+				  <a href="signup.html">Sign up</a>
+				  <button type="submit" class="btn btn-default btn-submit-login" style="float:right">Submit</button>
+				</form>
+	  	</div>
+		</div>
+	</div>	
+
+	<script type="text/javascript">
+		$('.btn-submit-login').click(function(){
+			// Get input text value (email & password)
+			var userEmail = $('#exampleInputEmail1').val();
+			var userPassword = $('#exampleInputPassword1').val();
+
+			// Ajax POST to backend
+			$.ajax({
+			  method: "POST",
+			  url: "api/login.php",
+			  dataType: "json",
+			  async: false,
+			  data: {email:userEmail,password:userPassword}
+			})
+		  .done(function(data) {
+		  	// get json value
+		  	var login = data.login;
+		  	var msg = data.message;
+		  	// if login=true, redirect to home page
+		  	if(login) {
+		  		window.location.href = 'index.html';
+		  	} else {
+		  		$('.msg-error').html(msg);
+		  		$('.alert-error-container').show();
+		  	}	
+		  });
+		});
+	</script>
+</body>
+</html>

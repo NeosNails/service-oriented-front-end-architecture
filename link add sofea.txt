@@ -1,0 +1,16 @@
+fullname=mohd zain&
+screenname=zain&
+gender=male&
+age=13&
+school_name=SMK Kerian&
+school_level=Form 1&
+class_name=1 Cekal&
+address=No 3, Jalan kuning&
+postcode=23141&
+city=semenyih&
+state=selangor&
+email=zain@bcpny.com.my&
+phone_no=0193312213&
+username=zain123&
+password=zain123&
+role=student

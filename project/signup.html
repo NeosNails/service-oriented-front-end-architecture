@@ -1,0 +1,321 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Dasar Jati Sdn Bhd</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest minified jQuery -->
+<script src="js/jquery-3.1.1.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	// Ajax POST to backend
+	$.ajax({
+	  method: "POST",
+	  url: "api/user.php",
+	  dataType: "json",
+	  async: false
+	})
+	.done(function(data) {
+		// get json value
+	 	var login = data.login;
+	 	// if login=true, redirect to index page
+	 	if(login) {
+			window.location.href = 'index.html';
+	 	} 
+	});
+</script>
+
+<style type="text/css">
+	/*body {
+		background-image: url('image/bg.gif');
+	}*/
+	.login-container {
+		margin: auto;
+		margin-top: 100px;
+		width: 400px;
+	}
+	.login-title {
+		font-size: 16px;
+		font-weight: bold;
+	}
+	.alert-error-container {
+		margin: auto;
+		/*margin-top: 80px;*/
+		width: 400px;
+		display: none;
+	}
+	body {
+		background-image: url('image/bg.gif');
+	}
+	#new-registration {
+		margin: auto;
+		width: 70%;
+		background-color: #FFF;
+	}
+</style>
+</head>
+<body>
+	<div class="row" id="new-registration">
+		<h3 style="text-align:center">NEW REGISTRATION</h3>
+    <div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Basic Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Full Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputFullname" placeholder="Full Name">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Screen Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputScreenname" placeholder="Screen Name">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Gender</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <!-- <input type="email" class="form-control" id="exampleInputGender" placeholder="Gender"> -->
+            <select class="form-control" id="exampleInputGender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+        </div>                           
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Age</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputAge" placeholder="Age">
+          </div>
+        </div>
+			</div>
+    </div>
+    <div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Profile Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Username</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputUsername" placeholder="Username">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Password</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputPassword" placeholder="Password">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">User Role</p>
+          </div>
+	        <div class="col-sm-5" style="padding:5px;">
+	          <!-- <input type="email" class="form-control" id="exampleInputRole" placeholder="Role"> -->
+            <select class="form-control" id="exampleInputRole">
+              <option value="Student">Student</option>
+              <option value="Parent">Parent</option>
+            </select>
+	        </div>
+        </div>
+      </div>
+    </div>
+   	<div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">School Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">School Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputSchoolname" placeholder="School Name">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">School Level</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <!-- <input type="email" class="form-control" id="exampleInputSchoolLevel" placeholder="School Level"> -->
+            <select class="form-control" id="exampleInputSchoolLevel">
+              <option value="Standard 1">Standard 1</option>
+              <option value="Standard 2">Standard 2</option>
+              <option value="Standard 3">Standard 3</option>
+              <option value="Standard 4">Standard 4</option>
+              <option value="Standard 5">Standard 5</option>
+              <option value="Standard 6">Standard 6</option>
+              <option value="Form 1">Form 1</option>
+              <option value="Form 2">Form 2</option>
+              <option value="Form 3">Form 3</option>
+              <option value="Form 4">Form 4</option>
+              <option value="Form 5">Form 5</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Class Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputClassName" placeholder="Class Name">
+          </div>
+        </div>
+      </div>
+    </div>
+		<div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Contact Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Address</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputAddress" placeholder="Address">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Postcode</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputPostcode" placeholder="Postcode">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">City</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputCity" placeholder="City">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">State</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <!-- <input type="email" class="form-control" id="exampleInputState" placeholder="State"> -->
+            <select class="form-control" id="exampleInputState">
+              <option value="Johor">Johor</option>
+              <option value="Kedah">Kedah</option>
+              <option value="Kelantan">Kelantan</option>
+              <option value="Melaka">Melaka</option>
+              <option value="Negeri Sembilan">Negeri Sembilan</option>
+              <option value="Pahang">Pahang</option>
+              <option value="Perak">Perak</option>
+              <option value="Perlis">Perlis</option>
+              <option value="Pulau Pinang">Pulau Pinang</option>
+              <option value="Sabah">Sabah</option>
+              <option value="Sarawak">Sarawak</option>
+              <option value="Selangor">Selangor</option>
+              <option value="Terengganu">Terengganu</option>
+              <option value="Wilayah Persekutuan">Wilayah Persekutuan</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Email</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email">
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 12px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Phone No.</p>
+          </div>
+          <div class="col-sm-5" style="padding:5px;">
+            <input type="email" class="form-control" id="exampleInputPhoneNo" placeholder="Phone No.">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-error-container">
+		<div class="alert alert-danger msg-error" role="alert"></div>
+	</div>	
+
+    <div class="row" style="margin:0px 10px 30px 10px;">
+      <button type="submit" class="btn btn-success btn-submit-signup" style="float:right">Sign up</button>
+    </div>
+
+  </div>	
+
+	<script type="text/javascript">
+		
+		$('.btn-submit-signup').click(function(){
+			var registerData = {};
+			registerData.fullname = $('#exampleInputFullname').val();
+			registerData.screenname = $('#exampleInputScreenname').val();
+			registerData.gender = $('#exampleInputGender').val();
+			registerData.age = $('#exampleInputAge').val();
+			registerData.username = $('#exampleInputUsername').val();
+			registerData.password = $('#exampleInputPassword').val();
+			registerData.role = $('#exampleInputRole').val();
+			registerData.school_name = $('#exampleInputSchoolname').val();
+			registerData.school_level = $('#exampleInputSchoolLevel').val();
+			registerData.class_name = $('#exampleInputClassName').val();
+			registerData.address = $('#exampleInputAddress').val();
+			registerData.postcode = $('#exampleInputPostcode').val();
+			registerData.city = $('#exampleInputCity').val();
+			registerData.state = $('#exampleInputState').val();
+			registerData.email = $('#exampleInputEmail').val();
+			registerData.phone_no = $('#exampleInputPhoneNo').val();
+
+			// console.log(registerData);
+
+		// Ajax POST to backend
+			$.ajax({
+			  method: "POST",
+			  url: "api/user_add.php",
+			  dataType: "json",
+			  async: false,
+			  data: registerData
+			})
+		  .done(function(data) {
+		  	// get json value
+		  	var resultData = data.items.status;
+		  	var msgError = '<div style="color:red;">Register unsuccessful</div>';
+		  	var msgSuccess = '<div style="color:Green;">Successful registration. Please go to <a href="index.html">login page</a></div>';
+		  	console.log(resultData);
+		  	// if login=true, redirect to home page
+		  	if(resultData) {
+		  		$('.msg-error').html(msgSuccess);
+		  		$('.alert-error-container').show();
+		  	} else {
+		  		$('.msg-error').html(msgError);
+		  		$('.alert-error-container').show();
+		  	}	
+		  });
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "items": {
+    "id": 1,
+    "username": "ikmalhanafi123",
+    "role": "Student",
+    "status": "Inactive",
+    "fullname": "Ikmal Hanafi",
+    "screenname": "Mohd Fahmi",
+    "gender": "Male",
+    "age": 16,
+    "school": {
+      "name": "SMK Nilai",
+      "level": "Form 3",
+      "class": "3 Saksama"
+    },
+    "address": {
+      "address": "No 3, Jalan Nilai 3\/2, Taman Nilai",
+      "postcode": 71800,
+      "city": "Nilai",
+      "state": "Negeri Sembilan"
+    },
+    "email": "ikmal@gmail.com",
+    "phone_no": 123312213
+  }
+}
+

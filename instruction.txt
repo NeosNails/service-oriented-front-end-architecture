@@ -1,0 +1,7 @@
+Setup database
+Step 1 : create database named sofea
+Step 2 : import "sofea.sql" to database
+
+Setup project file
+Step 1 : copy all files in folder "project" and paste into project folder (e.g: htdocs or public_html or ...)
+Step 3 : edit config.php file in folder api to match with database setting, if using localhost set the hostname to 'localhost'

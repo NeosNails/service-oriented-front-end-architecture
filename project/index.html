@@ -1,0 +1,539 @@
+<!DOCTYPE>
+<html>
+<head>
+<title>Dasar Jati Sdn Bhd</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="lib/bootstrap-3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<link rel="stylesheet" href="lib/font-awesome-4.6.3/css/font-awesome.min.css">
+
+
+<!-- Latest minified jQuery -->
+<script src="js/jquery-3.1.1.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="lib/bootstrap-3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+  var profileData = []; //define object get data from database
+  var companyData = []; //define object to get from json file
+	// Ajax POST to backend
+
+  $(document).ready(function(){
+    // Ajax POST to JSON file
+    $.ajax({
+      method: "GET",
+      url: "json/company_data.json",
+      dataType: "json"
+    })
+    .done(function(data) {
+      // get json value
+      companyData = data.items;
+      // console.log(companyData);
+      $('#rv_companyName').text(companyData.name);
+      $('#rv_companyAddress').text(companyData.address);
+      $('#rv_companyEmail').text(companyData.email);
+      $('#rv_companyWebsite').text(companyData.website);
+    });
+
+
+    // Ajax POST to backend
+    $.ajax({
+      method: "POST",
+      url: "api/user_data.php",
+      dataType: "json",
+      async: false
+    })
+    .done(function(data) {
+      // get json value
+      profileData = data.items;
+      // console.log(profileData.fullname);
+      $('#rv_fullName').text(profileData.fullname);
+      $('#rv_screenName').text(profileData.screenname);
+      $('#rv_gender').text(profileData.gender);
+      $('#rv_age').text(profileData.age);
+      $('#rv_username').text(profileData.username);
+      $('#rv_role').text(profileData.role);
+      $('#rv_status').text(profileData.status);
+      $('#rv_school_name').text(profileData.school.name);
+      $('#rv_school_level').text(profileData.school.level);
+      $('#rv_class_name').text(profileData.school.class);
+      $('#rv_address').text(profileData.address.address);
+      $('#rv_postcode').text(profileData.address.postcode);
+      $('#rv_city').text(profileData.address.city);
+      $('#rv_state').text(profileData.address.state);
+      $('#rv_email').text(profileData.email);
+      $('#rv_phoneNo').text(profileData.phone_no);
+    });  
+
+    $('.btn-submit-logout').click(function(){
+      // Ajax POST to backend
+      $.ajax({
+        method: "POST",
+        url: "api/logout.php",
+        dataType: "json",
+        async: false
+      })
+      .done(function(data) {
+        // get json value
+        var login = data.login;
+        // if login=true, redirect to home page
+        if(login) {
+          window.location.href = 'index.html';
+        } else {
+          window.location.href = 'login.html';
+        } 
+      });
+    });
+
+    $('body').on('click', '.btnEditInput', function(){
+			var editFor = $(this).attr('editFor');
+			var defafultValue = $(this).parent().parent().parent().find('#'+editFor).text();
+			console.log(defafultValue+editFor);
+
+			if(editFor == 'rv_gender'){
+				$(this).parent().parent().parent().find('#'+editFor).parent().html('<select class="form-control" id="'+editFor+'">'+
+              '<option value="Male">Male</option>'+
+              '<option value="Female">Female</option>'+
+            '</select>');
+			}
+			else if(editFor == 'rv_role'){
+				$(this).parent().parent().parent().find('#'+editFor).parent().html('<select class="form-control" id="'+editFor+'">'+
+              '<option value="Student">Student</option>'+
+              '<option value="Parent">Parent</option>'+
+            '</select>');
+			}
+			else if(editFor == 'rv_school_level'){
+				$(this).parent().parent().parent().find('#'+editFor).parent().html('<select class="form-control" id="'+editFor+'">'+
+              '<option value="Standard 1">Standard 1</option>'+
+              '<option value="Standard 2">Standard 2</option>'+
+              '<option value="Standard 3">Standard 3</option>'+
+              '<option value="Standard 4">Standard 4</option>'+
+              '<option value="Standard 5">Standard 5</option>'+
+              '<option value="Standard 6">Standard 6</option>'+
+              '<option value="Form 1">Form 1</option>'+
+              '<option value="Form 2">Form 2</option>'+
+              '<option value="Form 3">Form 3</option>'+
+              '<option value="Form 4">Form 4</option>'+
+              '<option value="Form 5">Form 5</option>'+
+            '</select>');
+			}
+			else if(editFor == 'rv_state'){
+				$(this).parent().parent().parent().find('#'+editFor).parent().html('<select class="form-control" id="'+editFor+'">'+
+              '<option value="Johor">Johor</option>'+
+              '<option value="Kedah">Kedah</option>'+
+              '<option value="Kelantan">Kelantan</option>'+
+              '<option value="Melaka">Melaka</option>'+
+              '<option value="Negeri Sembilan">Negeri Sembilan</option>'+
+              '<option value="Pahang">Pahang</option>'+
+              '<option value="Perak">Perak</option>'+
+              '<option value="Perlis">Perlis</option>'+
+              '<option value="Pulau Pinang">Pulau Pinang</option>'+
+              '<option value="Sabah">Sabah</option>'+
+              '<option value="Sarawak">Sarawak</option>'+
+              '<option value="Selangor">Selangor</option>'+
+              '<option value="Terengganu">Terengganu</option>'+
+              '<option value="Wilayah Persekutuan">Wilayah Persekutuan</option>'+
+            '</select>');
+			}
+			else{
+				$(this).parent().parent().parent().find('#'+editFor).parent().html('<input class="form-control" id="'+editFor+'" value="'+defafultValue+'">');
+			}
+			$(this).parent().html('<a class="btnSaveInput" style="display:flex;" editFor="'+editFor+'"><i class="fa fa-save"></i></a>');
+		});
+
+		$('body').on('click', '.btnSaveInput', function(){
+			var saveEditFor = $(this).attr('editFor');
+			var saveEditValue = $(this).parent().parent().parent().find('#'+saveEditFor).val();
+			console.log(saveEditFor+saveEditValue);
+
+			// $(this).parent().parent().find('.editableInput').addClass('disabled').prop('disabled', true);
+			$(this).parent().html('<a class="btnEditInput" style="display:flex;" editFor="'+saveEditFor+'"><i class="fa fa-edit" style="display: flex;"></i></a>');
+
+			editUserAccount(saveEditFor, saveEditValue);
+		});
+
+  });
+
+	$.ajax({
+	  method: "POST",
+	  url: "api/user.php",
+	  dataType: "json",
+	  async: false
+	})
+	.done(function(data) {
+		// get json value
+	 	var login = data.login;
+	 	// if login=false, redirect to login page
+	 	if(!login) {
+			window.location.href = 'login.html';
+	 	}
+	});
+
+	function editUserAccount(editAttr, editValue){
+		var dataObject = {};
+		dataObject.field = editAttr;
+		dataObject.value = editValue;
+		$.ajax({
+			type: "POST",
+			url: "api/user_update.php",
+			dataType: "json",
+			data:dataObject
+		}).done(function(data){
+			var editRespondObj = data.items.status;
+			console.log(editRespondObj);
+			// if(editRespondObj) {
+        var html = '<p class="std-text-secondary" id="'+editAttr+'" style="color:#4B4F85;" ';
+  
+        html += ' >'+editValue+'</p>';
+
+        if(editAttr == 'rv_password'){
+          html = '<input id="rv_password" class="std-text-primary" value="'+editValue+'" style="font-weight: normal;margin: 0px 0px 8px 0px;padding: 0px;border: none;background:none;" disabled="" type="password">';
+        }
+
+				$('#'+editAttr).parent().html(html);
+			// }
+			// else{
+
+			// }
+		});
+	}
+
+</script>
+
+<style type="text/css">
+	body {
+		background-image: url('image/bg.gif');
+	}
+	#p_profileInfo {
+		margin: auto;
+		width: 800px;
+		background-color: #FFF;
+	}
+</style>
+</head>
+<body>
+	<div class="row" id="p_profileInfo">
+		<h3 style="text-align:center">PROFILE</h3>
+
+    <div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Corporate Information (json file data)</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Company</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_companyName" style="color:#4B4F85;text-transform: capitalize;">- Not Stated -</p>
+          </div>
+          <!-- <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+              <a class="btnEditInput" editFor="rv_companyName" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+            </div>
+          </div> -->
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Address</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_companyAddress" style="color:#4B4F85;">- Not Stated -</p>
+          </div>
+          <!-- <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+              <a class="btnEditInput" editFor="rv_companyAddress" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+            </div>
+          </div> -->
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Email</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_companyEmail" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <!-- <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+              <a class="btnEditInput" editFor="rv_companyEmail" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+            </div>
+          </div> -->
+        </div>                           
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Website</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_companyWebsite" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <!-- <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+              <a class="btnEditInput" editFor="rv_companyWebsite" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Basic Information (database data)</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Full Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_fullName" style="color:#4B4F85;text-transform: capitalize;">- Not Stated -</p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_fullName" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Screen Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_screenName" style="color:#4B4F85;">- Not Stated -</p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_screenName" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Gender</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_gender" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_gender" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>                           
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Age</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_age" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_age" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+			</div>
+    </div>
+    <div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Profile Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <!-- <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Username</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_username" style="color:#4B4F85;">- Not Stated -</p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_username" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div> -->
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Email</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_email" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+              <a class="btnEditInput" editFor="rv_email" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Password</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <input id="rv_password" class="std-text-primary" value="444444" style="font-weight: normal;margin: 0px 0px 8px 0px;padding: 0px;border: none;background:none;" disabled="" type="password">
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_password" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">User Role</p>
+          </div>
+	        <div class="col-sm-5" style="padding:0px;">
+	          <p class="std-text-secondary" id="rv_role" style="color:#4B4F85;">- Not Stated -</p>
+	        </div>
+	        <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_role" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Status</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_status" style="color:#4B4F85;">- Not Stated -</p>
+          </div>
+          <!-- <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_status" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+   	<div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">School Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">School Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_school_name" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_school_name" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">School Level</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_school_level" style="color:#4B4F85;">- Not Stated -</p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_school_level" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Class Name</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_class_name" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_class_name" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		<div class="row" style="margin:0px 10px 0px;">
+      <div class="row" style="margin:0px;padding: 0px 16px 0px;">
+        <p class="std-text-primary">Contact Information</p>
+      </div>
+      <div class="row" style="margin: 0px 16px 0px;padding: 16px 35px 26px;border-top: solid 1px #dfdfdf;">
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Address</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_address" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_address" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Postcode</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_postcode" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_postcode" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">City</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_city" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_city" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">State</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_state" style="color:#4B4F85;"><span class="std-text-secondary">- Not Stated -</span></p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_state" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-sm-2" style="padding: 0px 15px 0px 0px;">
+            <p class="std-text-primary" style="margin-bottom: 10px;">Phone No.</p>
+          </div>
+          <div class="col-sm-5" style="padding:0px;">
+            <p class="std-text-secondary" id="rv_phoneNo" style="color:#4B4F85;">- Not Stated -</p>
+          </div>
+          <div style="padding:0px;" class="col-sm-1">
+            <div class="input-group-addon" style="background:none;border:none;cursor:pointer;">
+				      <a class="btnEditInput" editFor="rv_phoneNo" style="display: flex;"><i class="fa fa-edit" style="display: flex;"></i></a>
+				    </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin:0px 10px 30px 10px;">
+      <button type="submit" class="btn btn-success btn-submit-logout" style="float:right">Logout</button>
+    </div>
+
+  </div>
+</body>
+</html>
